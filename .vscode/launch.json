@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+         {
+            "name": "Development",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "FondacoSB1",
+            "breakOnError": "All",
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "tenant": "a4297c45-d5c3-4d63-b561-5ad3bb9103fb",
+            "startupObjectId": 22,
+            "startupObjectType": "Page"
+        }
+    ]
+}
+
