@@ -5,9 +5,7 @@ tableextension 50136 "Days Due Table Ext." extends "Activities Cue"
         field(50136; "Service Contracts Due"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = count("Service Contract Header" where(
-                Status = const(Signed),
-                "Expiration Date" = field("Date Filter Service")));
+            CalcFormula = count("Service Contract Header" where(Status = const(Signed), "Expiration Date" = field("Date Filter Service")));
             Caption = 'Service Contracts Due';
             Editable = false;
         }
