@@ -27,6 +27,7 @@ pageextension 50112 "Sales Order Line Cancel Qty." extends "Sales Order Subform"
     var
         IsCancelled: Boolean;
 
+
     trigger OnAfterGetRecord()
     var
         SalesHeader: Record "Sales Header";

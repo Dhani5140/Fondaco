@@ -40,4 +40,18 @@ pageextension 50111 SalesCancleQtyExtension extends "Sales Order"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        SetEditable();
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        SetEditable();
+    end;
+
+    local procedure SetEditable()
+    begin
+        CurrPage.Editable := Rec.Status <> Rec.Status::Cancelled;
+    end;
 }

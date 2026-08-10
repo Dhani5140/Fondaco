@@ -7,7 +7,6 @@ codeunit 50111 CloseCancSalesCode
         TotalOriginalQty: Decimal;
         TotalCancelQty: Decimal;
         TotalShippedQty: Decimal;
-        ConfirmMsg: Label 'The Quantity for cancel is %1. Are you sure you want to cancel?';
     begin
         // Validasi 1 : Cancelled Reason must be filled
         if SalesHeader."Cancellation Reason" = '' then
@@ -30,7 +29,7 @@ codeunit 50111 CloseCancSalesCode
         TotalCancelQty := SalesLine."Qty. to Ship";
         TotalShippedQty := SalesLine."Quantity Shipped";
 
-        if not Confirm(ConfirmMsg, false, TotalCancelQty) then
+        if not Confirm('The Quantity for cancel is %1. Are you sure you want to cancel?', false, TotalCancelQty) then
             exit;
 
         if SalesLine.FindSet(true) then
@@ -43,7 +42,7 @@ codeunit 50111 CloseCancSalesCode
             until SalesLine.Next() = 0;
 
         SalesHeader."Cancelled" := true;
-        SalesHeader.Status := SalesHeader.Status::Closed;
+        SalesHeader.Status := SalesHeader.Status::Cancelled;
         SalesHeader."Cancelled Date" := Today;
         SalesHeader."Cancelled By" := CopyStr(UserId, 1, 50);
         SalesHeader.Modify(true);

@@ -9,7 +9,7 @@ This Extension only for custom all function except report & print out
 
 ## ID Used
 1. Sales Contract   50100 - 50110
-2. Sales Cancel     50111 - 50115
+2. FDD23            50111 - 50115
 3. FDD15            50116 - 50120
 4. FDD14            50121 - 50125
 5. FDD21            50126 - 50130
