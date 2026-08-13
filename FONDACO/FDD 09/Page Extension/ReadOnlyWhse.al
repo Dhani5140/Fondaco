@@ -13,18 +13,13 @@ pageextension 50146 "Disable bin pick subform" extends "Whse. Pick Subform"
     }
 
     trigger OnOpenPage()
-    begin
-        GetInventorySetup();
-    end;
-
-    var
-        DisableBinSelection: Boolean;
-
-    local procedure GetInventorySetup()
     var
         InvSetup: Record "Inventory Setup";
     begin
         if InvSetup.Get() then
             DisableBinSelection := InvSetup."Disable Bin";
     end;
+
+    var
+        DisableBinSelection: Boolean;
 }
