@@ -20,7 +20,7 @@ pageextension 50151 "PQ Subform Ext" extends "Purchase Quote Subform"
                 if Rec.Type <> Rec.Type::Item then
                     exit(false);
 
-                if Rec."Document Type" <> Rec."Document Type"::Order then
+                if Rec."Document Type" <> Rec."Document Type"::Quote then
                     exit(false);
 
                 Rec.CalcFields("Vendor No. Filter");

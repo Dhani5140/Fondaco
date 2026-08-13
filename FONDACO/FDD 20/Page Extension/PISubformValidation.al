@@ -20,7 +20,7 @@ pageextension 50152 "PI Subform Ext" extends "Purch. Invoice Subform"
                 if Rec.Type <> Rec.Type::Item then
                     exit(false);
 
-                if Rec."Document Type" <> Rec."Document Type"::Order then
+                if Rec."Document Type" <> Rec."Document Type"::Invoice then
                     exit(false);
 
                 Rec.CalcFields("Vendor No. Filter");
