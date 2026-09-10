@@ -1,0 +1,33 @@
+codeunit 50160 "Installation Date Mgt."
+{
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesDoc', '', false, false)]
+    local procedure OnAfterPostSalesDoc(var SalesHeader: Record "Sales Header"; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; SalesShptHdrNo: Code[20]; RetRcpHdrNo: Code[20]; SalesInvHdrNo: Code[20]; SalesCrMemoHdrNo: Code[20]; CommitIsSuppressed: Boolean; InvtPickPutaway: Boolean; var CustLedgerEntry: Record "Cust. Ledger Entry"; WhseShip: Boolean; WhseReceiv: Boolean; PreviewMode: Boolean)
+    var
+        SalesShptHeader: Record "Sales Shipment Header";
+    begin
+        if (SalesShptHdrNo = '') or (SalesHeader."Installation Date" = 0D) then exit;
+
+        if SalesShptHeader.Get(SalesShptHdrNo) then begin
+            SalesShptHeader."Installation Date" := SalesHeader."Installation Date";
+            SalesShptHeader.Modify();
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterInsertEvent', '', false, false)]
+    local procedure SalesLine_OnAfterInsert(var Rec: Record "Sales Line")
+    var
+        SalesHeader: Record "Sales Header";
+        SalesShipmentHeader: Record "Sales Shipment Header";
+    begin
+        if (Rec."Document Type" <> Rec."Document Type"::Invoice) or (Rec."Shipment No." = '') then
+            exit;
+        if not SalesHeader.Get(Rec."Document Type", Rec."Document No.") then
+            exit;
+        if SalesHeader."Installation Date" <> 0D then
+            exit;
+        if SalesShipmentHeader.Get(Rec."Shipment No.") and (SalesShipmentHeader."Installation Date" <> 0D) then begin
+            SalesHeader."Installation Date" := SalesShipmentHeader."Installation Date";
+            SalesHeader.Modify();
+        end;
+    end;
+}
