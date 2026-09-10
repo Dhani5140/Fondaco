@@ -4,7 +4,7 @@ pageextension 50160 "Warehouse InstDate PageExt." extends "Warehouse Shipment"
     {
         addafter("Sorting Method")
         {
-            field("Installation Date"; Rec."Installation Date")
+            field("Installation Date"; Rec."InstallationDate")
             {
                 Caption = 'Installation Date';
                 ToolTip = 'Specifies the installation date of item';
@@ -20,7 +20,7 @@ pageextension 50160 "Warehouse InstDate PageExt." extends "Warehouse Shipment"
                 WhseShptLine: Record "Warehouse Shipment Line";
                 SalesHeader: Record "Sales Header";
             begin
-                if Rec."Installation Date" = 0D then
+                if Rec."InstallationDate" = 0D then
                     exit;
 
                 WhseShptLine.SetRange("No.", Rec."No.");
@@ -28,8 +28,8 @@ pageextension 50160 "Warehouse InstDate PageExt." extends "Warehouse Shipment"
                 if WhseShptLine.FindSet() then
                     repeat
                         if SalesHeader.Get(SalesHeader."Document Type"::Order, WhseShptLine."Source No.") then
-                            if SalesHeader."Installation Date" = 0D then begin
-                                SalesHeader."Installation Date" := Rec."Installation Date";
+                            if SalesHeader."InstallationDate" = 0D then begin
+                                SalesHeader."InstallationDate" := Rec."InstallationDate";
                                 SalesHeader.Modify();
                             end;
                     until WhseShptLine.Next() = 0;

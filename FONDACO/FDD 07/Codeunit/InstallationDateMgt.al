@@ -5,10 +5,10 @@ codeunit 50160 "Installation Date Mgt."
     var
         SalesShptHeader: Record "Sales Shipment Header";
     begin
-        if (SalesShptHdrNo = '') or (SalesHeader."Installation Date" = 0D) then exit;
+        if (SalesShptHdrNo = '') or (SalesHeader."InstallationDate" = 0D) then exit;
 
         if SalesShptHeader.Get(SalesShptHdrNo) then begin
-            SalesShptHeader."Installation Date" := SalesHeader."Installation Date";
+            SalesShptHeader."InstallationDate" := SalesHeader."InstallationDate";
             SalesShptHeader.Modify();
         end;
     end;
@@ -23,10 +23,10 @@ codeunit 50160 "Installation Date Mgt."
             exit;
         if not SalesHeader.Get(Rec."Document Type", Rec."Document No.") then
             exit;
-        if SalesHeader."Installation Date" <> 0D then
+        if SalesHeader."InstallationDate" <> 0D then
             exit;
-        if SalesShipmentHeader.Get(Rec."Shipment No.") and (SalesShipmentHeader."Installation Date" <> 0D) then begin
-            SalesHeader."Installation Date" := SalesShipmentHeader."Installation Date";
+        if SalesShipmentHeader.Get(Rec."Shipment No.") and (SalesShipmentHeader."InstallationDate" <> 0D) then begin
+            SalesHeader."InstallationDate" := SalesShipmentHeader."InstallationDate";
             SalesHeader.Modify();
         end;
     end;

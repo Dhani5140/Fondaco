@@ -2,7 +2,7 @@ tableextension 50160 "Warehouse InstDate Ext." extends "Warehouse Shipment Heade
 {
     fields
     {
-        field(50160; "Installation Date"; Date)
+        field(50160; "InstallationDate"; Date)
         {
             Caption = 'Installation Date';
             DataClassification = CustomerContent;
