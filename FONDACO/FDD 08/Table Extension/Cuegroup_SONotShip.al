@@ -8,8 +8,7 @@ tableextension 50121 "Sales Order Not Shipped Ext." extends "Activities Cue"
             FieldClass = FlowField;
             Editable = false;
             CalcFormula = count("Sales Header" where
-                        ("Document Type" = const(Order),
-                        Status = const(Released),
+                        (Status = const(Released),
                         "Completely Shipped" = const(false)));
         }
     }
