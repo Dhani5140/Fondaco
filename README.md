@@ -20,4 +20,9 @@ This Extension only for custom all function except report & print out
 10. FDD13           50150 - 50154
 11. FDD12           50155 - 50159
 12. FDD07           50160 - 50164
-13. FDD10           50165 - 50120
+13. FDD10           50165 - 50169
+14. FDD21           50170 - 50174
+15. FDD27           50175 - 50180
+16. FDD28           50181 - 50185
+17. FDD30           50186 - 50190
+18. FDD29           50191 - 50193

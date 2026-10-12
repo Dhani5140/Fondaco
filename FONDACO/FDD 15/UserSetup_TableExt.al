@@ -4,7 +4,7 @@ tableextension 50131 "User Setup TableExt" extends "User Setup"
     {
         field(50131; "Allow Change Price"; Boolean)
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
     }
 }
