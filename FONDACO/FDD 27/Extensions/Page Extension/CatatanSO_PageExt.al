@@ -1,0 +1,13 @@
+pageextension 50176 "Catatan SO PageExt." extends "Sales Order Subform"
+{
+    layout
+    {
+        addafter("Line Discount %")
+        {
+            field("Catatan 1"; Rec."Catatan 1") { ApplicationArea = All; }
+            field("Catatan 2"; Rec."Catatan 2") { ApplicationArea = All; }
+            field("Catatan 3"; Rec."Catatan 3") { ApplicationArea = All; }
+            field("Catatan 4"; Rec."Catatan 4") { ApplicationArea = All; }
+        }
+    }
+}
