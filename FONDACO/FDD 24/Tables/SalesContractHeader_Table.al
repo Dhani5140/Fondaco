@@ -2,8 +2,8 @@ table 50100 "Sales Contract Header"
 {
     Caption = 'Sales Contract Header';
     DataClassification = CustomerContent;
-    // LookupPageId = "Sales Contract List";
-    // DrillDownPageId = "Sales Contract List";
+    LookupPageId = "Sales Contract List";
+    DrillDownPageId = "Sales Contract List";
 
     fields
     {
@@ -17,20 +17,21 @@ table 50100 "Sales Contract Header"
         {
             Caption = 'Customer';
             TableRelation = Customer;
-            // trigger OnValidate()
-            // var
-            //     Cust: Record Customer;
-            // begin
-            //     TestOpen();
-            //     if "Customer No." = '' then
-            //         exit;
-            //     Cust.Get("Customer No.");
-            //     "Payment Terms Code" := Cust."Payment Terms Code";
-            //     "Currency Code" := Cust."Currency Code";
-            //     "E-Mail" := Cust."E-Mail";
-            //     "Customer Posting Group" := Cust."Customer Posting Group";
-            //     "Ship-to Code" := '';
-            // end;
+            trigger OnValidate()
+            var
+                Cust: Record Customer;
+            begin
+                TestOpen();
+                if "Customer" = '' then
+                    exit;
+                Cust.Get("Customer");
+
+                "Payment Terms Code" := Cust."Payment Terms Code";
+                "Currency Code" := Cust."Currency Code";
+                "E-Mail" := Cust."E-Mail";
+                "Customer Posting Group" := Cust."Customer Posting Group";
+                "Ship-to Code" := '';
+            end;
         }
         field(3; "Customer Name"; Text[100])
         {
