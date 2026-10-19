@@ -195,8 +195,8 @@ table 50101 "Sales Contract Lines"
     begin
         if "VAT Prod. Posting Group" = '' then
             exit(0);
-        Header.TestField("Customer");
-        Customer.Get(Header."Customer");
+        Header.TestField("Customer No.");
+        Customer.Get(Header."Customer No.");
         VATSetup.Get(Customer."VAT Bus. Posting Group", "VAT Prod. Posting Group");
         exit(VATSetup."VAT %");
     end;

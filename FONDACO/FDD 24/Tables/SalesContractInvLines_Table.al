@@ -1,4 +1,4 @@
-table 50103 "Sales Contract Inv. Lines"
+table 50102 "Sales Contract Inv. Lines"
 {
     Caption = 'Sales Contract Invoice Line';
     DataClassification = CustomerContent;

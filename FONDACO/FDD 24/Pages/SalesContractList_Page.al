@@ -5,7 +5,7 @@ page 50102 "Sales Contract List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Contract Header";
-    // CardPageId = "Sales Contract Card";
+    CardPageId = "Sales Contract Card";
     Editable = false;
 
     layout
@@ -15,14 +15,14 @@ page 50102 "Sales Contract List"
             repeater(Contracts)
             {
                 field("Package No."; Rec."Package No.") { Caption = 'No.'; }
-                field("Customer No."; Rec."Customer") { }
+                field("Customer No."; Rec."Customer No.") { }
                 field("Customer Name"; Rec."Customer Name") { }
                 field(Description; Rec.Description) { }
-                field("Category Package"; Rec."Category Package") { }
-                field("Nomor Penawaran"; Rec."Nomor Penawaran") { }
+                field("Paket Category Code"; Rec."Paket Category Code") { }
+                field("No. Penawaran"; Rec."No. Penawaran") { }
                 field("Salesperson Code"; Rec."Salesperson Code") { }
                 field(Status; Rec.Status) { }
-                field("Start Date"; Rec."Start Date") { }
+                field("Contract Start Date"; Rec."Contract Start Date") { }
                 field("Contract Period"; Rec."Contract Period") { }
                 field("Contract End Date"; Rec."Contract End Date") { }
                 field("Total Contract Value"; Rec."Total Contract Value") { }
@@ -42,7 +42,7 @@ page 50102 "Sales Contract List"
                 Image = Cancel;
                 trigger OnAction()
                 begin
-                    // Cancel Contract Action
+                    ContractMgt.CancelContract(Rec);
                 end;
             }
             action(LockContract)
@@ -51,7 +51,7 @@ page 50102 "Sales Contract List"
                 Image = Lock;
                 trigger OnAction()
                 begin
-                    // Lock Contract Action
+                    ContractMgt.LockContract(Rec);
                 end;
             }
         }
@@ -63,14 +63,14 @@ page 50102 "Sales Contract List"
     }
 
     var
-        // ContractMgt: Codeunit "Sales Contract Mgt.";
+        ContractMgt: Codeunit "Sales Contract Mgt.";
         TotalPaymentMade: Decimal;
         GoodsSent: Decimal;
 
-    // trigger OnAfterGetRecord()
-    // begin
-    //     Rec.CalcFields("Total Contract Value");
-    //     TotalPaymentMade := Rec.GetTotalPaymentMade();
-    //     GoodsSent := Rec.GetTotalValueOfGoodsSent();
-    // end;
+    trigger OnAfterGetRecord()
+    begin
+        Rec.CalcFields("Total Contract Value");
+        TotalPaymentMade := Rec.GetTotalPaymentMade();
+        GoodsSent := Rec.GetTotalValueOfGoodsSent();
+    end;
 }

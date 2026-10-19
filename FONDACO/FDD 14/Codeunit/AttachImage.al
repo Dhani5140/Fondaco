@@ -8,18 +8,18 @@ codeunit 50126 "Attachment RecRef Handler"
     [EventSubscriber(ObjectType::Page, Page::"Doc. Attachment List Factbox", 'OnAfterGetRecRefFail', '', false, false)]
     local procedure OnAfterGetRecRefFail(var DocumentAttachment: Record "Document Attachment"; var RecRef: RecordRef)
     var
-        // SalesContractHeader: Record "Sales Contract Header";
+        SalesContractHeader: Record "Sales Contract Header";
         WhseShipmentHeader: Record "Warehouse Shipment Header";
         WhseReceiptHeader: Record "Warehouse Receipt Header";
     begin
         case DocumentAttachment."Table ID" of
-            // Database::"Sales Contract Header":
-            //     begin
-            //         PendingContractNo := DocumentAttachment."No.";
-            //         RecRef.Open(Database::"Sales Contract Header");
-            //         if SalesContractHeader.Get(PendingContractNo) then
-            //             RecRef.GetTable(SalesContractHeader);
-            //     end;
+            Database::"Sales Contract Header":
+                begin
+                    PendingContractNo := DocumentAttachment."No.";
+                    RecRef.Open(Database::"Sales Contract Header");
+                    if SalesContractHeader.Get(PendingContractNo) then
+                        RecRef.GetTable(SalesContractHeader);
+                end;
             Database::"Warehouse Shipment Header":
                 begin
                     PendingContractNo := DocumentAttachment."No.";
