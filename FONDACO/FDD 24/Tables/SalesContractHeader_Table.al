@@ -7,7 +7,11 @@ table 50100 "Sales Contract Header"
 
     fields
     {
-        field(1; "Package No."; Code[20]) { Caption = 'Package No.'; }
+        field(1; "Package No."; Code[20])
+        {
+            Caption = 'Package No.';
+            TableRelation = "Sales & Receivables Setup"."Sales Package";
+        }
         field(2; "Customer No."; Code[20])
         {
             Caption = 'Customer No.';
@@ -232,13 +236,12 @@ table 50100 "Sales Contract Header"
     var
         InvLine: Record "Sales Contract Inv. Lines";
         Line: Record "Sales Contract Lines";
-        HasPostedErr: Label 'You cannot delete contract %1 because it has posted installment invoices.', Comment = '%1 = Package No.';
     begin
         TestOpen();
         InvLine.SetRange("Package No.", "Package No.");
         InvLine.SetRange("Invoice Posted", true);
         if not InvLine.IsEmpty() then
-            Error(HasPostedErr, "Package No.");
+            Error('You cannot delete contract %1 because it has posted installment invoices.', "Package No.");
         InvLine.SetRange("Invoice Posted");
         InvLine.DeleteAll();
         Line.SetRange("Package No.", "Package No.");

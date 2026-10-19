@@ -1,6 +1,6 @@
 table 50103 "Paket Kategori"
 {
-    Caption = 'Paket Category';
+    Caption = 'Kategori Paket';
     DataClassification = CustomerContent;
     LookupPageId = "Paket Kategori List";
     DrillDownPageId = "Paket Kategori List";
@@ -16,10 +16,9 @@ table 50103 "Paket Kategori"
     trigger OnDelete()
     var
         ContractHeader: Record "Sales Contract Header";
-        InUseErr: Label 'You cannot delete Paket Kategori %1 because it is used by a Sales Contract.', Comment = '%1 = Code';
     begin
         ContractHeader.SetRange("Paket Category Code", Code);
         if not ContractHeader.IsEmpty() then
-            Error(InUseErr, Code);
+            Error('You cannot delete Paket Kategori %1 because it is used by a Sales Contract.', Code);
     end;
 }

@@ -44,6 +44,33 @@ page 50104 "Sales Contract Invoice Lines"
                     CurrPage.Update(false);
                 end;
             }
+            action(PostInvoice)
+            {
+                Caption = 'Post Invoice';
+                Image = Post;
+
+            }
+            action(SendPrintInvoice)
+            {
+                Caption = 'Send/Print Invoice';
+                Image = PostPrint;
+
+                // To be confirm by functional
+            }
+            action(PrintInvoice)
+            {
+                Caption = 'Print Invoice';
+                Image = Print;
+
+                // To be confirm by functional
+            }
+            action(ReverseInvoice)
+            {
+                Caption = 'Reverse Invoice';
+                Image = Create;
+
+                // To be confirm by functional
+            }
         }
     }
 

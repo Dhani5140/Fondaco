@@ -35,32 +35,40 @@ page 50101 "Sales Contract Card"
                 field(GoodsProcessing; GoodsProcessing) { Caption = 'Total Value of Goods Processing Sending'; Editable = false; }
                 field(GoodsSent; GoodsSent) { Caption = 'Total Value of Goods Sent'; Editable = false; }
             }
-            group(LinesGroup)
+            part(Lines; "Sales Contract Lines")
             {
-                Caption = 'Lines';
-                part(Lines; "Sales Contract Lines")
-                {
-                    SubPageLink = "Package No." = field("Package No.");
-                    UpdatePropagation = Both;
-                }
+                Caption = 'Contract Lines';
+                SubPageLink = "Package No." = field("Package No.");
+                UpdatePropagation = Both;
             }
             group(Invoicing)
             {
-                Caption = 'Invoicing';
+                Caption = 'Sales Contract Invoicing';
                 field("Payment Terms Code"; Rec."Payment Terms Code") { Editable = IsOpen; }
                 field("Ship-to Code"; Rec."Ship-to Code") { Editable = IsOpen; }
                 field("E-Mail"; Rec."E-Mail") { Editable = IsOpen; }
                 field("Customer Posting Group"; Rec."Customer Posting Group") { Editable = IsOpen and AllowMultiplePostingGroups; }
                 field("Currency Code"; Rec."Currency Code") { Editable = IsOpen; }
             }
-            group(InvoicingLine)
+            part(InvoiceLines; "Sales Contract Invoice Lines")
             {
-                Caption = 'Invoicing Lines';
-                part(InvoiceLines; "Sales Contract Invoice Lines")
-                {
-                    SubPageLink = "Package No." = field("Package No.");
-                    UpdatePropagation = Both;
-                }
+                Caption = 'Invoice Lines';
+                SubPageLink = "Package No." = field("Package No.");
+                UpdatePropagation = Both;
+            }
+        }
+        area(FactBoxes)
+        {
+            systempart(Links; Links) { ApplicationArea = All; }
+            systempart(Notes; Notes) { ApplicationArea = All; }
+            part(AttachedDocumentsList; "Doc. Attachment List Factbox")
+            {
+                ApplicationArea = All;
+                Caption = 'Documents';
+                UpdatePropagation = Both;
+                SubPageLink = "Table ID" = const(Database::"Sales Contract Header"),
+                                           "No." = field("Package No."),
+                                           "Line No." = const(0);
             }
         }
     }
@@ -104,15 +112,17 @@ page 50101 "Sales Contract Card"
                     end;
                 end;
             }
-            action(ContraDetails)
+            action(ContractDetails)
             {
-                Caption = 'Contra Details';
+                Caption = 'Contract Details';
+                Image = ViewDetails;
 
-                // TBC (also Contra bukan typo ? Harusnya Contract kah)
+                // To be confirm by functional
             }
             action(CreateSalesOrders)
             {
                 Caption = 'Create Sales Orders';
+                Image = PostOrder;
             }
         }
         area(Promoted)
@@ -120,6 +130,8 @@ page 50101 "Sales Contract Card"
             actionref(LockContract_Promoted; LockContract) { }
             actionref(ReopenContract_Promoted; ReopenContract) { }
             actionref(CancelContract_Promoted; CancelContract) { }
+            actionref(ContractDetails_Promoted; ContractDetails) { }
+            actionref(CreateSalesOrders_Promoted; CreateSalesOrders) { }
         }
     }
 

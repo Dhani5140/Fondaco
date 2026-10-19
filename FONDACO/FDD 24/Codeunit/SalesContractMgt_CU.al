@@ -1,5 +1,20 @@
 codeunit 50100 "Sales Contract Mgt."
 {
+
+    // Copy to Cust Ledger Entry
+    [EventSubscriber(ObjectType::Table, Database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', false, false)]
+    local procedure CopyPackageNoToCustLedgerEntry(var CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
+    begin
+        CustLedgerEntry."Sales Package No." := GenJournalLine."Sales Package No.";
+    end;
+
+    // Copy to GLEntry
+    [EventSubscriber(ObjectType::Table, Database::"G/L Entry", 'OnAfterCopyGLEntryFromGenJnlLine', '', false, false)]
+    local procedure CopyPackageNoToGLEntry(var GLEntry: Record "G/L Entry"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GLEntry."Sales Package No." := GenJournalLine."Sales Package No.";
+    end;
+
     procedure ReopenContract(var Header: Record "Sales Contract Header")
     begin
         if Header.Status = Header.Status::Open then
@@ -8,7 +23,7 @@ codeunit 50100 "Sales Contract Mgt."
         Header.Status := Header.Status::Open;
         Header.Modify(true);
 
-        // Archive old contract sifatnya mau list atau bagaimana ?
+        // Confirmation archive sales contract ke functional
     end;
 
     procedure CancelContract(var Header: Record "Sales Contract Header")
@@ -19,7 +34,7 @@ codeunit 50100 "Sales Contract Mgt."
         Header.Status := Header.Status::Cancelled;
         Header.Modify(true);
 
-        // Confirmation cancel function
+        // Confirmation cancel function ke functional
     end;
 
     procedure LockContract(var Header: Record "Sales Contract Header")
@@ -67,7 +82,7 @@ codeunit 50100 "Sales Contract Mgt."
         Header.TestField("No. Penawaran");
         Header.CalcFields("Total Contract Value");
 
-        // Schedule
+        // Calculate schedule
         NextDate := Header."Contract Start Date";
         while NextDate <= Header."Contract End Date" do begin
             InvoiceDates.Add(NextDate);

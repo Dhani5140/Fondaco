@@ -21,7 +21,7 @@ table 50101 "Sales Contract Lines"
                     exit;
                 end;
                 if "Item Category Options" <> '' then
-                    Error(EitherItemOrCategoryErr);
+                    Error('Fill in either Item No. or Item Category Options, not both.');
                 Item.Get("Item No.");
                 Item.TestField(Blocked, false);
                 "Item Category Code" := Item."Item Category Code";
@@ -54,7 +54,7 @@ table 50101 "Sales Contract Lines"
                 if "Item Category Options" = '' then
                     exit;
                 if "Item No." <> '' then
-                    Error(EitherItemOrCategoryErr);
+                    Error('Fill in either Item No. or Item Category Options, not both.');
                 foreach CatCode in "Item Category Options".Split('|') do
                     ItemCategory.Get(CatCode);
             end;
@@ -71,7 +71,7 @@ table 50101 "Sales Contract Lines"
                 CalcFields("Quantity on SO", "Quantity Invoiced", "Quantity Returned");
                 Consumed := "Quantity on SO" + "Quantity Invoiced" - "Quantity Returned";
                 if Quantity < Consumed then
-                    Error(QtyBelowConsumedErr, Consumed);
+                    Error('Quantity cannot be lower than the quantity already consumed (%1).', Consumed);
                 CalcAmounts();
             end;
         }
@@ -136,9 +136,6 @@ table 50101 "Sales Contract Lines"
 
     keys { key(PK; "Package No.", "Line No.") { Clustered = true; } }
 
-    var
-        EitherItemOrCategoryErr: Label 'Fill in either Item No. or Item Category Options, not both.';
-        QtyBelowConsumedErr: Label 'Quantity cannot be lower than the quantity already consumed (%1).', Comment = '%1 = consumed qty';
 
     trigger OnInsert()
     var

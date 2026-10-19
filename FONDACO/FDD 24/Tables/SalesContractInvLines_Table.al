@@ -12,7 +12,7 @@ table 50102 "Sales Contract Inv. Lines"
         field(5; Description; Text[100]) { Caption = 'Invoice Description'; }
         field(6; "Invoice Last Printed Date"; Date) { Caption = 'Invoice Last Printed Date'; Editable = false; }
         field(7; Amount; Decimal) { Caption = 'Amount'; Editable = false; }
-        field(8; "Cust. Ledger Entry No."; Integer) { Caption = 'Cust. Ledger Entry No.'; Editable = false; } // set by posting in 3.6
+        field(8; "Cust. Ledger Entry No."; Integer) { Caption = 'Cust. Ledger Entry No.'; Editable = false; }
         field(9; "Remaining Amount"; Decimal)
         {
             Caption = 'Remaining Amount';
