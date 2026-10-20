@@ -1,6 +1,6 @@
 page 50102 "Sales Contract List"
 {
-    Caption = 'Sales Contract';
+    Caption = 'Sales Contracts';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;

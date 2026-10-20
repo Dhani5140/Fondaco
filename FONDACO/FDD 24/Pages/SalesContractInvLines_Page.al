@@ -47,8 +47,19 @@ page 50104 "Sales Contract Invoice Lines"
             action(PostInvoice)
             {
                 Caption = 'Post Invoice';
-                Image = Post;
+                Image = PostOrder;
+                Enabled = not Rec."Invoice Posted";
 
+                trigger OnAction()
+                var
+                    ContractPosting: Codeunit "Invoice Posting Mgt.";
+                    ConfirmQst: Label 'Post invoice %1?', Comment = '%1 = Invoice No.';
+                begin
+                    if not Confirm(ConfirmQst, false, Rec."Invoice No.") then
+                        exit;
+                    ContractPosting.PostSingle(Rec);
+                    CurrPage.Update(false);
+                end;
             }
             action(SendPrintInvoice)
             {

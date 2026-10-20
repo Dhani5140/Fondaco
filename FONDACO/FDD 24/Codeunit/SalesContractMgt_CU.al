@@ -58,7 +58,7 @@ codeunit 50100 "Sales Contract Mgt."
         InvoiceNo: Code[20];
         PostedCount, TotalCount, UnpostedCount, i : Integer;
         PostedTotal, Remaining, Instalment, Assigned : Decimal;
-        DescriptionTxt: Text[150];
+        DescriptionTxt: Label 'Cicilan %1/%2 [%3]', Locked = true;
     begin
         Header.TestField(Status, Header.Status::Open);
         Header.TestField("Faktur Cicilan Nos.");

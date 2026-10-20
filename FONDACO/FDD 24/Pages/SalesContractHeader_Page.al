@@ -12,7 +12,7 @@ page 50101 "Sales Contract Card"
             group(Header)
             {
                 Caption = 'Sales Contract Header';
-                field("Package No."; Rec."Package No.") { ShowMandatory = true; }
+                field("Package No."; Rec."Package No.") { ShowMandatory = true; Editable = IsOpen; }
                 field("Customer No."; Rec."Customer No.") { Editable = IsOpen; ShowMandatory = true; }
                 field("Customer Name"; Rec."Customer Name") { Editable = false; }
                 field(Description; Rec.Description) { Editable = IsOpen; }
@@ -127,7 +127,7 @@ page 50101 "Sales Contract Card"
 
                 trigger OnAction()
                 var
-                    OrderMgt : Codeunit "Sales Contract Order Mgt.";
+                    OrderMgt: Codeunit "Sales Contract Order Mgt.";
                 begin
                     OrderMgt.CreateSalesOrder(Rec);
                 end;

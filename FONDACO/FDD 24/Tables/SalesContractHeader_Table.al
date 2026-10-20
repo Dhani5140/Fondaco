@@ -84,8 +84,15 @@ table 50100 "Sales Contract Header"
             Caption = 'No. Series Faktur Cicilan';
             TableRelation = "No. Series" where("Nomor Faktur Cicilan" = const(true));
             trigger OnValidate()
+            var
+                InvLine: Record "Sales Contract Inv. Lines";
             begin
                 TestOpen();
+                if "Faktur Cicilan Nos." <> xRec."Faktur Cicilan Nos." then begin
+                    InvLine.SetRange("Package No.", "Package No.");
+                    InvLine.SetRange("Invoice Posted", false);
+                    InvLine.DeleteAll();
+                end;
             end;
         }
         field(10; "Faktur Pengiriman Nos."; Code[20])

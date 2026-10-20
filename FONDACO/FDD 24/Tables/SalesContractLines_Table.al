@@ -84,7 +84,11 @@ table 50101 "Sales Contract Lines"
                 CalcAmounts();
             end;
         }
-        field(9; "Total Excl. VAT"; Decimal) { Caption = 'Total Excl. VAT'; Editable = false; }
+        field(9; "Total Excl. VAT"; Decimal)
+        {
+            Caption = 'Total Excl. VAT';
+            Editable = false;
+        }
         field(10; "VAT Prod. Posting Group"; Code[20])
         {
             Caption = 'VAT Prod. Posting Group';
