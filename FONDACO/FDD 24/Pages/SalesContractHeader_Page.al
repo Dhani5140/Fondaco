@@ -123,6 +123,14 @@ page 50101 "Sales Contract Card"
             {
                 Caption = 'Create Sales Orders';
                 Image = PostOrder;
+                Enabled = Rec.Status = Rec.Status::Locked;
+
+                trigger OnAction()
+                var
+                    OrderMgt : Codeunit "Sales Contract Order Mgt.";
+                begin
+                    OrderMgt.CreateSalesOrder(Rec);
+                end;
             }
         }
         area(Promoted)

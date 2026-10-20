@@ -1,20 +1,5 @@
 codeunit 50100 "Sales Contract Mgt."
 {
-
-    // Copy to Cust Ledger Entry
-    [EventSubscriber(ObjectType::Table, Database::"Cust. Ledger Entry", 'OnAfterCopyCustLedgerEntryFromGenJnlLine', '', false, false)]
-    local procedure CopyPackageNoToCustLedgerEntry(var CustLedgerEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line")
-    begin
-        CustLedgerEntry."Sales Package No." := GenJournalLine."Sales Package No.";
-    end;
-
-    // Copy to GLEntry
-    [EventSubscriber(ObjectType::Table, Database::"G/L Entry", 'OnAfterCopyGLEntryFromGenJnlLine', '', false, false)]
-    local procedure CopyPackageNoToGLEntry(var GLEntry: Record "G/L Entry"; var GenJournalLine: Record "Gen. Journal Line")
-    begin
-        GLEntry."Sales Package No." := GenJournalLine."Sales Package No.";
-    end;
-
     procedure ReopenContract(var Header: Record "Sales Contract Header")
     begin
         if Header.Status = Header.Status::Open then
@@ -55,8 +40,9 @@ codeunit 50100 "Sales Contract Mgt."
             Error('The contract has no lines');
         repeat
             if ((Line."Item No." = '') = (Line."Item Category Options" = '')) or
-               (Line."Unit of Measure Code" = '') or (Line.Quantity <= 0)
-            then
+               (Line."Unit of Measure Code" = '') or (Line.Quantity <= 0) or
+               (Line."VAT Prod. Posting Group" = '')
+                        then
                 Error('Line %1: fill in either Item No. or Item Category Options, plus Unit of Measure and Quantity.', Line."Line No.");
         until Line.Next() = 0;
     end;
