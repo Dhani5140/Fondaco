@@ -122,4 +122,13 @@ codeunit 50100 "Sales Contract Mgt."
             InvLine.Insert(true);
         end;
     end;
+
+    procedure GetAdvanceAccountNo(ContractHeader: Record "Sales Contract Header"): Code[20]
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        SalesSetup.Get();
+        SalesSetup.TestField("Cicilan Advance Account No.");
+        exit(SalesSetup."Cicilan Advance Account No.");
+    end;
 }

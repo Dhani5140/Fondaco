@@ -15,6 +15,7 @@ codeunit 50101 "Invoice Posting Mgt."
         GenJnlLine: Record "Gen. Journal Line";
         CustLedgerEntry: Record "Cust. Ledger Entry";
         GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
+        ContractMgt: Codeunit "Sales Contract Mgt.";
     begin
         if InvLine."Invoice Posted" then
             Error('Invoice %1 is already posted.', InvLine."Invoice No.");
@@ -45,10 +46,10 @@ codeunit 50101 "Invoice Posting Mgt."
         GenJnlLine.Validate(Amount, InvLine.Amount);
         GenJnlLine.Validate("Payment Terms Code", Header."Payment Terms Code");
         GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
-        // GenJnlLine.Validate("Bal. Account No.", '2.01.04A'); <-- Entah down payment atau pre-payment atau ada field custom lagi 
+        GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::"G/L Account";
+        GenJnlLine.Validate("Bal. Account No.", ContractMgt.GetAdvanceAccountNo(Header));   // <-- temporary setup di sales & receiveable juga
         GenJnlLine."Sales Package No." := Header."Package No.";
         GenJnlLine."Source Code" := SourceCodeSetup."General Journal";
-        GenJnlLine.Insert(true);
 
         GenJnlPostLine.RunWithCheck(GenJnlLine);
 
